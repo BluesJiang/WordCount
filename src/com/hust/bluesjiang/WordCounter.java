@@ -72,7 +72,7 @@ public class WordCounter {
                 if (this.escapeWord != null && this.escapeWord.contains(word)) {
                     count--;
                 }
-                if (ch == -1) break;
+                ch = file.read();
             }
             file.close();
         } catch (IOException e) {

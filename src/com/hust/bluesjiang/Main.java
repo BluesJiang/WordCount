@@ -10,10 +10,11 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-//        parseArgs(args);
         ArgParser argParser = new ArgParser();
-        argParser.parse(args);
-//        System.out.println(argParser.target);
+        if (argParser.parse(args) < 0) {
+            System.out.println("Arguments error");
+            return ;
+        }
         WordCounter wc = new WordCounter();
         if (argParser.containsKey("e")) {
             wc.buildEscapeWord(argParser.get("e"));
@@ -21,7 +22,6 @@ public class Main {
         }
         String outputStr = "";
         for (String inputFileName:argParser.getTarget()) {
-
             if (argParser.containsKey("c")) {
                 outputStr += inputFileName +", 字符数: "+wc.countChar(inputFileName)+"\n";
             }
