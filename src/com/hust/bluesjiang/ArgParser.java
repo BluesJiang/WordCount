@@ -29,11 +29,11 @@ public class ArgParser {
                         break;
                     case 'o':
                     case 'e':
-                        if (i+1 < args.length) {
+                        if (i+1 < args.length && args[i+2].startsWith("-")) {
                             this.args.put(String.valueOf(arg), args[i+1]);
                             i++;
                         } else {
-                            System.out.println(args[i] + "must follow a file");
+                            System.out.println(args[i] + " must follow a file");
                             return -1;
                         }
                         break;

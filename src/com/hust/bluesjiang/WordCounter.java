@@ -39,7 +39,7 @@ public class WordCounter {
             int ch = file.read();
             while (ch != -1) {
                 String word = "";
-                while(ch != -1 && (char)ch != ' ') {
+                while(ch != -1 && !isSep((char) ch)) {
                     word += String.valueOf((char)ch);
                     ch = file.read();
                 }

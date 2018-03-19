@@ -2,8 +2,7 @@ package com.hust.bluesjiang;
 
 //import org.apache.commons.cli.*;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,9 +38,11 @@ public class Main {
 
         if (argParser.containsKey("o")) {
             try {
-                FileWriter outputFile = new FileWriter(argParser.get("o"));
-                outputFile.write(outputStr);
-                outputFile.close();
+                FileOutputStream fos = new FileOutputStream(new File(argParser.get("o")));
+                OutputStreamWriter writer = new OutputStreamWriter(fos, "utf-8");
+                writer.write(outputStr);
+                writer.close();
+                fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
