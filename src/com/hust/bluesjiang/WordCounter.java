@@ -47,7 +47,8 @@ public class WordCounter {
                 if (ch == -1)break;
                 ch = file.read();
             }
-
+            file.close();
+//            System.out.println(this.escapeWord);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,15 +61,18 @@ public class WordCounter {
             int ch = file.read();
             while (ch != -1) {
                 String word = "";
+                while (ch != -1 && isSep((char)ch)) {
+                    ch = file.read();
+                }
                 while (ch != -1 && !isSep((char)ch)) {
                     word += String.valueOf((char)ch);
                     ch = file.read();
                 }
-                if (this.escapeWord != null && !this.escapeWord.contains(word)) {
-                    count++;
+                count++;
+                if (this.escapeWord != null && this.escapeWord.contains(word)) {
+                    count--;
                 }
                 if (ch == -1) break;
-                ch = file.read();
             }
             file.close();
         } catch (IOException e) {

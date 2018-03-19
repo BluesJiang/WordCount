@@ -54,40 +54,49 @@ public class ArgParser {
             }
             String[] comp = filePath.split(sep);
             this.exten = comp[comp.length-1].substring(1);
-            buildTaget(".");
-            buildTaget(filePath);
-
+            if (comp.length == 1) {
+                buildTarget(".");
+            } else {
+                char pathsep;
+                if(os.toLowerCase().startsWith("win")){
+                    pathsep = '\\';
+                } else {
+                    pathsep = '/';
+                }
+                 buildTarget(filePath.substring(0,filePath.lastIndexOf(pathsep)));
+            }
         }
     }
 
-    void buildTaget(String path) {
-        if (this.args.containsKey("s")) {
-            File dir = new File(path);
-            if (dir.exists()) {
-                File[] files = dir.listFiles();
-                for (File file:files) {
-                    if (file.isDirectory()) {
-                        buildTaget(file.getAbsolutePath());
-                    }
-                    if (file.isFile()) {
-                        String name = file.getAbsolutePath();
-                        if (name.endsWith(this.exten)) {
-                            this.target.add(name);
-                        }
+    void buildTarget(String path) {
+        File dir = new File(path);
+        if (dir.exists()) {
+            File[] files = dir.listFiles();
+            for (File file:files) {
+                if (file.isDirectory()) {
+                    buildTarget(file.getPath());
+                }
+                if (file.isFile()) {
+                    String name = file.getPath();
+                    if (name.endsWith(this.exten)) {
+                        this.target.add(name);
                     }
                 }
-
             }
+
         }
     }
-    public String[] get(String key) {
+    public String[] getTarget() {
+        return target.toArray(new String[target.size()]);
+    }
+    public boolean containsKey(String key) {
+        return args.containsKey(key);
+    }
+    public String get(String key) {
         if (args.containsKey(key)) {
-            if (args.get(key).equals("")) {
-                return target.toArray(new String[target.size()]);
-            }
-            else {
-                return new String[];
-            }
+            return args.get(key);
+        } else {
+            return null;
         }
     }
 
