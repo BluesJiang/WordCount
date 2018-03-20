@@ -29,7 +29,7 @@ public class ArgParser {
                         break;
                     case 'o':
                     case 'e':
-                        if (i+1 < args.length && args[i+2].startsWith("-")) {
+                        if (i+1 < args.length && !args[i+1].startsWith("-")) {
                             this.args.put(String.valueOf(arg), args[i+1]);
                             i++;
                         } else {
