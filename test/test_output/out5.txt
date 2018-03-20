@@ -1,3 +1,0 @@
-test\test_cases\httpd.c, 字符数: 16221
-test\test_cases\httpd.c, 单词数: 1757
-test\test_cases\httpd.c, 行数: 516
